@@ -9,11 +9,11 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - iguideme.local
+        - {{ .Values.hostName }}
       secretName: lti-tls-secret
 
   rules:
-    - host: iguideme.local
+    - host: {{ .Values.hostName }}
       http:
         paths:
           - path: /

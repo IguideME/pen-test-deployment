@@ -8,6 +8,7 @@ deploymentIds: 1:8865aa05b4b79b64a91a86042e43af5ea8ae79eb
 apiKey: a_super_secure_secret
 apiKeyName: X-API-Key
 frontendUrl: http://localhost:2000
+hostName: iguideme.local
 
 image:
   api:
