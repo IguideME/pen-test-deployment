@@ -9,6 +9,7 @@ apiKey: a_super_secure_secret
 apiKeyName: X-API-Key
 frontendUrl: http://localhost:2000
 hostName: iguideme.local
+ingressClassName: nginx
 
 image:
   api:
@@ -33,7 +34,6 @@ etl:
 postgres:
   image: postgres:15
   volumeSize: 1Gi
-  env:
   env:
     DB_HOST: postgres.default.svc.cluster.local
     POSTGRES_USER: iguideme
