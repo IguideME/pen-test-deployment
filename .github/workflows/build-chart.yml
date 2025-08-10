@@ -37,5 +37,5 @@ jobs:
           
       - name: Deploy latest version
         run: |
-          VERSION=$(grep version charts/Chart.yaml | cut -d " " -f2)
+          VERSION=$(grep version charts/iguideme-saas/Chart.yaml | cut -d " " -f2)
           curl "https://k8s.datanose.nl/gitops-updater?name=iguideme-saas&secret=${UPDATER_SECRET}&version=${VERSION}"
