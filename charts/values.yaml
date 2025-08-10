@@ -1,0 +1,66 @@
+clientId: 10000000000001
+authenticateLoginUrl: https://canvas.iguideme.com/api/lti/authorize_redirect
+authenticateTokenUrl: https://canvas.iguideme.com/login/oauth2/token
+canvasUrl: canvas.iguideme.com
+jwksUrl: https://canvas.iguideme.com/api/lti/security/jwks
+jwtSecretKey: change_this_secret
+deploymentIds: 1:8865aa05b4b79b64a91a86042e43af5ea8ae79eb
+apiKey: a_super_secure_secret
+apiKeyName: X-API-Key
+frontendUrl: http://localhost:2000
+
+image:
+  api:
+    repository: ghcr.io/iguideme/api
+    tag: latest
+    pullPolicy: IfNotPresent
+    port: 8000
+  nginx:
+    repository: nginx
+    tag: latest
+  etl:
+    enabled: true
+    repository: ghcr.io/iguideme/etl
+    tag: latest
+    pullPolicy: IfNotPresent
+    port: 8080
+
+etl:
+  airflowUuid: 50000
+  apiBaseUrl: "https://canvas.local:8443"
+
+postgres:
+  image: postgres:15
+  volumeSize: 1Gi
+  env:
+  env:
+    DB_HOST: postgres.default.svc.cluster.local
+    POSTGRES_USER: iguideme
+    POSTGRES_PASSWORD: thispasswordisridiculous
+    POSTGRES_DB: iguideme-main-pod
+
+ingress-nginx:
+  controller:
+    service:
+      ports:
+        http: 8080
+      targetPorts:
+        http: http
+
+azure:
+  keyvaultName: keyvaultName
+  resourceGroup: resourceGroupName
+  subscriptionId: subscriptionId
+  tenantId: tenantId
+  clientId: clientId
+  identityName: identityName
+  secrets:
+    - name: iguideme-canvas-token
+      key: CANVAS_API_KEY
+      envVar: CANVAS_API_KEY
+    - name: iguideme-lti-key
+      key: LtiKey
+      envVar: CLIENT_ID
+    - name: iguideme-jwt-key
+      key: LTI__SigningKey
+      envVar: JWT_SECRET_KEY

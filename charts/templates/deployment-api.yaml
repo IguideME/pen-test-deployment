@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+        {{- if .Values.azure }}
+        aadpodidbinding: iguideme-azure-kv
+        {{- end }}
+    spec:
+      containers:
+        - name: api
+          image: "{{ .Values.image.api.repository }}:{{ .Values.image.api.tag }}"
+          imagePullPolicy: {{ .Values.image.api.pullPolicy }}
+          command: ["uvicorn", "api.iguideme.main:app", "--host", "0.0.0.0", "--port", "8000"]
+          ports:
+            - containerPort: {{ .Values.api.port }}
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.postgres.env.POSTGRES_USER | quote }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.postgres.env.POSTGRES_PASSWORD | quote }}
+            - name: POSTGRES_DB
+              value: {{ .Values.postgres.env.POSTGRES_DB | quote }}
+            - name: DB_HOST
+              value: {{ .Values.postgres.env.DB_HOST | quote }}
+            - name: DATABASE_URL
+              value: "postgresql://{{ .Values.postgres.env.POSTGRES_USER }}:{{ .Values.postgres.env.POSTGRES_PASSWORD }}@{{ .Values.postgres.env.DB_HOST }}:5432/{{ .Values.postgres.env.POSTGRES_DB }}"
+            - name: AUTH_LOGIN_URL
+              value: "{{ .Values.authenticateLoginUrl }}"
+            - name: AUTH_TOKEN_URL
+              value: "{{ .Values.authenticateTokenUrl }}"
+            - name: CANVAS_URL
+              value: "{{ .Values.canvasUrl }}"
+            - name: JWKS_URL
+              value: "{{ .Values.jwksUrl }}"
+            - name: API_KEY
+              value: "{{ .Values.apiKey }}"
+            - name: API_KEY_NAME
+              value: "{{ .Values.apiKeyName }}"
+            - name: FRONTEND_URL
+              value: "{{ .Values.frontendUrl }}"
+            - name: DEPLOYMENT_IDS
+              value: "{{ .Values.deploymentIds }}"
+          envFrom:
+            - secretRef:
+                name: iguideme-secret
+          {{- if .Values.azure }}
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/etc/secrets"
+              readOnly: true
+            - name: iguideme-data
+              mountPath: "/data"
+          {{- end }}
+
+      {{- if .Values.azure }}
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "iguideme-secretproviderclass"
+        - name: iguideme-data
+          persistentVolumeClaim:
+            claimName: iguideme-data
+      {{- end }}
