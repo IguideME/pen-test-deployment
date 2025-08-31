@@ -33,6 +33,7 @@ jobs:
         id: chart
         uses: helm/chart-releaser-action@v1.6.0
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           
       - name: Deploy latest version
