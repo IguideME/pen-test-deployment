@@ -6,6 +6,7 @@ on:
 
 env:
   UPDATER_SECRET: ${{ secrets.UPDATER_SECRET }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:    
@@ -34,7 +35,6 @@ jobs:
         uses: helm/chart-releaser-action@v1.6.0
         env:
           CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Deploy latest version
         run: |
