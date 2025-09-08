@@ -15,6 +15,8 @@ spec:
       labels:
         app: etl
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: etl
           image: "{{ .Values.image.etl.repository }}:{{ .Values.image.etl.tag }}"

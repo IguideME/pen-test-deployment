@@ -16,13 +16,15 @@ spec:
         aadpodidbinding: iguideme-azure-kv
         {{- end }}
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: api
           image: "{{ .Values.image.api.repository }}:{{ .Values.image.api.tag }}"
           imagePullPolicy: {{ .Values.image.api.pullPolicy }}
           command: ["uvicorn", "api.iguideme.main:app", "--host", "0.0.0.0", "--port", "8000"]
           ports:
-            - containerPort: {{ .Values.api.port }}
+            - containerPort: {{ .Values.image.api.port }}
           env:
             - name: POSTGRES_USER
               value: {{ .Values.postgres.env.POSTGRES_USER | quote }}

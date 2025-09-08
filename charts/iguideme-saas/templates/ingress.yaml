@@ -23,4 +23,4 @@ spec:
               service:
                 name: api
                 port:
-                  number: {{ .Values.api.port }}
+                  number: {{ .Values.image.api.port }}

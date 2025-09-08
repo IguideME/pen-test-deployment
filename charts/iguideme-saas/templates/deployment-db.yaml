@@ -13,6 +13,8 @@ spec:
       labels:
         app: db
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: postgres
           image: {{ .Values.postgres.image }}
