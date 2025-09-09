@@ -12,7 +12,7 @@ spec:
     metadata:
       labels:
         app: api
-        {{- if .Values.azure }}
+        {{- if eq .Values.secretProvider "azure" }}
         aadpodidbinding: iguideme-azure-kv
         {{- end }}
     spec:
@@ -55,14 +55,14 @@ spec:
           envFrom:
             - secretRef:
                 name: iguideme-secret
-          {{- if .Values.azure }}
+          {{- if eq .Values.secretProvider "azure" }}
           volumeMounts:
             - name: secrets-store-inline
               mountPath: "/etc/secrets"
               readOnly: true
           {{- end }}
 
-      {{- if .Values.azure }}
+      {{- if eq .Values.secretProvider "azure" }}
       volumes:
         - name: secrets-store-inline
           csi:

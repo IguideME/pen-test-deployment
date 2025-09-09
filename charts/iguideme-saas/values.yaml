@@ -12,16 +12,19 @@ frontendUrl: http://localhost:2000
 hostName: iguideme.local
 ingressClassName: nginx
 
+# One of azure, kubernetes
+secretProvider: azure
+
 image:
   api:
     repository: ghcr.io/iguideme/api
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     port: 8000
   frontend:
     repository: ghcr.io/iguideme/frontend
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     port: 3000
   nginx:
     repository: nginx
@@ -30,7 +33,7 @@ image:
     enabled: true
     repository: ghcr.io/iguideme/etl
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     port: 8090
 
 etl:
@@ -71,3 +74,9 @@ azure:
     - name: iguideme-jwt-key
       key: LTI__SigningKey
       envVar: JWT_SECRET_KEY
+
+kubernetes:
+  secrets:
+    CANVAS_API_KEY: "local-canvas-token"
+    LtiKey: "local-lti-key"
+    JWT_SECRET_KEY: "local-jwt-secret"
