@@ -25,6 +25,8 @@ spec:
               value: {{ .Values.postgres.env.POSTGRES_PASSWORD | quote }}
             - name: POSTGRES_DB
               value: {{ .Values.postgres.env.POSTGRES_DB | quote }}
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           volumeMounts:
             - name: db-data
               mountPath: /var/lib/postgresql/data
