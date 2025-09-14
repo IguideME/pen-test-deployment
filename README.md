@@ -37,7 +37,7 @@ Before you begin, update your `values.yaml` file with the correct settings for y
    helm list --all-namespaces
    ```
 
-2. Install (or upgrade) the chart from the root of this repository:
+2. Install (or upgrade) the chart from the folder with the `Chart.yml` you're targetting:
    ```bash
    helm upgrade --install iguideme .
    ```
