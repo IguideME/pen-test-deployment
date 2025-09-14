@@ -44,7 +44,7 @@ postgres:
   image: postgres:15
   volumeSize: 1Gi
   env:
-    DB_HOST: postgres.default.svc.cluster.local
+    DB_HOST: postgres
     POSTGRES_USER: iguideme
     POSTGRES_PASSWORD: thispasswordisridiculous
     POSTGRES_DB: iguideme-main-pod
@@ -57,6 +57,7 @@ ingress-nginx:
       targetPorts:
         http: http
 
+# If using Azure Keyvault
 azure:
   keyvaultName: keyvaultName
   resourceGroup: resourceGroupName
@@ -75,6 +76,7 @@ azure:
       key: LTI__SigningKey
       envVar: JWT_SECRET_KEY
 
+# If using local secrets
 kubernetes:
   secrets:
     CANVAS_API_KEY: "local-canvas-token"
