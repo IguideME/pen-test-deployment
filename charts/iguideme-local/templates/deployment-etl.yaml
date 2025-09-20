@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etl
+  namespace: "{{ .Release.Namespace }}"
+  labels:
+    app: etl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etl
+  template:
+    metadata:
+      labels:
+        app: etl
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: etl
+          image: "{{ .Values.image.etl.repository }}:{{ .Values.image.etl.tag }}"
+          imagePullPolicy: {{ .Values.image.etl.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: AIRFLOW_UID
+              value: "{{ .Values.etl.apiBaseUrl }}"
+            - name: API_KEY
+              value: "{{ .Values.apiKey }}"
+            - name: API_KEY_NAME
+              value: "{{ .Values.apiKeyName }}"
