@@ -1,5 +1,0 @@
-apiVersion: v2
-name: iguideme
-description: IguideME All-In-One deployment
-version: 0.1.11
-appVersion: "1.0"
