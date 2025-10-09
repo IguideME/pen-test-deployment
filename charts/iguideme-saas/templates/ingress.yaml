@@ -24,3 +24,13 @@ spec:
                 name: api
                 port:
                   number: {{ .Values.image.api.port }}
+    - host: {{ .Values.frontendUrl }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: {{ .Values.image.frontend.port }}
