@@ -44,6 +44,8 @@ spec:
               value: "{{ .Values.canvasUrl }}"
             - name: JWKS_URL
               value: "{{ .Values.jwksUrl }}"
+            - name: CLIENT_ID
+              value: "{{ .Values.clientId }}"
             - name: API_KEY
               value: "{{ .Values.apiKey }}"
             - name: API_KEY_NAME
