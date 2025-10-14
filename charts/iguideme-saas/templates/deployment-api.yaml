@@ -49,7 +49,7 @@ spec:
             - name: API_KEY_NAME
               value: "{{ .Values.apiKeyName }}"
             - name: FRONTEND_URL
-              value: "{{ .Values.frontendUrl }}"
+              value: "{{ .Values.frontendHostName }}"
             - name: DEPLOYMENT_IDS
               value: "{{ .Values.deploymentIds }}"
           envFrom:

@@ -12,6 +12,9 @@ spec:
     - hosts:
         - {{ .Values.hostName }}
       secretName: lti-tls-secret
+    - hosts:
+        - {{ .Values.frontendHostname }}
+      secretName: lti-tls-secret
 
   rules:
     - host: {{ .Values.hostName }}
@@ -24,7 +27,7 @@ spec:
                 name: api
                 port:
                   number: {{ .Values.image.api.port }}
-    - host: {{ .Values.frontendUrl }}
+    - host: {{ .Values.frontendHostName }}
       http:
         paths:
           - path: /
