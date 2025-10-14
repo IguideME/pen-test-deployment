@@ -11,9 +11,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.hostName }}
-      secretName: lti-tls-secret
-    - hosts:
-        - {{ .Values.frontendHostname }}
+        - {{ .Values.frontendHostName }}
       secretName: lti-tls-secret
 
   rules:
