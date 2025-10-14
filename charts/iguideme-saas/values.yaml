@@ -13,7 +13,7 @@ hostName: iguideme.local
 ingressClassName: nginx
 
 # One of azure, kubernetes
-secretProvider: kubernetes
+secretProvider: azure
 
 image:
   api:
