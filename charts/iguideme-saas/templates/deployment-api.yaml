@@ -26,6 +26,8 @@ spec:
           ports:
             - containerPort: {{ .Values.image.api.port }}
           env:
+            - name: APP_VERSION
+              value: '{{ .Chart.version }}'
             - name: POSTGRES_USER
               value: {{ .Values.postgres.env.POSTGRES_USER | quote }}
             - name: POSTGRES_PASSWORD
