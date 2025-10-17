@@ -3,6 +3,15 @@ entries:
   iguideme:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-10-17T16:33:30.505422794Z"
+    description: IguideME All-In-One deployment
+    digest: 2cf8bafc2bffa05ca2314b530c03e4cea33af58708bae4a554faf06e013efc8d
+    name: iguideme
+    urls:
+    - https://github.com/IguideME/pen-test-deployment/releases/download/iguideme-0.1.22/iguideme-0.1.22.tgz
+    version: 0.1.22
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-10-16T08:51:26.631629575Z"
     description: IguideME All-In-One deployment
     digest: 4499ce63705a6ddc5af824b775db88588c861aaf16e1a02b6e70ad160cf4cc2d
@@ -154,4 +163,4 @@ entries:
     urls:
     - https://github.com/IguideME/pen-test-deployment/releases/download/iguideme-0.1.4/iguideme-0.1.4.tgz
     version: 0.1.4
-generated: "2025-10-16T08:51:26.631736756Z"
+generated: "2025-10-17T16:33:30.505587322Z"
