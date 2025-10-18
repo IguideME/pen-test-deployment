@@ -26,4 +26,4 @@ spec:
             - name: APP_VERSION
               value: '{{ .Chart.version }}'
             - name: NEXT_PUBLIC_BACKEND_URL
-              value: "{{ .Values.hostName }}"
+              value: "https://{{ .Values.hostName }}"
