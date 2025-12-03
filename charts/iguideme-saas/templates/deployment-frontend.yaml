@@ -1,29 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
-  namespace: "{{ .Release.Namespace }}"
+    name: frontend
+    namespace: '{{ .Release.Namespace }}'
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: frontend
-  template:
-    metadata:
-      labels:
-        app: frontend
-    spec:
-      imagePullSecrets:
-        - name: ghcr-secret
-      containers:
-        - name: frontend
-          image: "{{ .Values.image.frontend.repository }}:{{ .Values.image.frontend.tag }}"
-          imagePullPolicy: {{ .Values.image.frontend.pullPolicy }}
-          command: ["npm", "run", "start"]
-          ports:
-            - containerPort: {{ .Values.image.frontend.port }}
-          env:
-            - name: APP_VERSION
-              value: '{{ .Chart.version }}'
-            - name: NEXT_PUBLIC_BACKEND_URL
-              value: "https://{{ .Values.hostName }}"
+    replicas: 1
+    selector:
+        matchLabels:
+            app: frontend
+    template:
+        metadata:
+            labels:
+                app: frontend
+        spec:
+            imagePullSecrets:
+                - name: ghcr-secret
+            containers:
+                - name: frontend
+                  image: '{{ .Values.image.frontend.repository }}:{{ .Values.image.frontend.tag }}'
+                  imagePullPolicy: { { .Values.image.frontend.pullPolicy } }
+                  ports:
+                      - containerPort: { { .Values.image.frontend.port } }
+                  env:
+                      - name: APP_VERSION
+                        value: '{{ .Chart.version }}'
